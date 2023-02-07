@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ak8*j$sqkmae=22=0g+%*7$zm+j&kquixx%s@5m3n((l^apdll'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.10.160']
 
 
 # Application definition
@@ -111,3 +111,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SIMPLEUI_HOME_INFO = False

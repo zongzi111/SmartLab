@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 # Create your models here.
 
 
@@ -65,9 +66,9 @@ class Category(BaseModel):
 
 class User(BaseModel):
     '''人员表'''
-    name = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=254)
-    phone = models.IntegerField()
+    name = models.CharField(max_length=50, unique=True, verbose_name='姓名')
+    email = models.EmailField(max_length=254, verbose_name='电子邮箱地址')
+    phone = models.IntegerField(verbose_name='手机号')
 
     def __str__(self) -> str:
         return self.name
@@ -111,6 +112,12 @@ class Instrument(BaseModel):
     def __str__(self) -> str:
         return self.eql
 
+    def clean(self):
+        if self.pm_date >= self.pm_due:
+            raise ValidationError(_('预防性维护到期日期早于预防性维护日期'), code='invalid')
+        if self.calibration_date >= self.calibration_due:
+            raise ValidationError(_('校准到期日期早于校准日期'), code='invalid')
+        
     class Meta:
         verbose_name = '设备信息'
         verbose_name_plural = verbose_name
