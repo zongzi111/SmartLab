@@ -113,10 +113,13 @@ class Instrument(BaseModel):
         return self.eql
 
     def clean(self):
-        if self.pm_date >= self.pm_due:
-            raise ValidationError(_('预防性维护到期日期早于预防性维护日期'), code='invalid')
-        if self.calibration_date >= self.calibration_due:
-            raise ValidationError(_('校准到期日期早于校准日期'), code='invalid')
+        if not self.pm_date:
+            return
+        else:
+            if self.pm_date >= self.pm_due:
+                raise ValidationError(_('预防性维护到期日期早于预防性维护日期'), code='invalid')
+            if self.calibration_date >= self.calibration_due:
+                raise ValidationError(_('校准到期日期早于校准日期'), code='invalid')
         
     class Meta:
         verbose_name = '设备信息'
