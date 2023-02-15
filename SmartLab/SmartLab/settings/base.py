@@ -47,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'instrument.middleware.timeit_middleware',
 ]
 
 ROOT_URLCONF = 'SmartLab.urls'
@@ -113,3 +114,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SIMPLEUI_HOME_INFO = False
+
+# 修改首页设置, 指向新创建的控制面板
+SIMPLEUI_HOME_PAGE = '/instrument/dashboard/'
+SIMPLEUI_HOME_TITLE = '控制面板' 
+# SIMPLEUI_HOME_ICON = 'fa fa-eye'
